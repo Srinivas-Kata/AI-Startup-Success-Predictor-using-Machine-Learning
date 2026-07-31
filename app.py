@@ -1,17 +1,22 @@
-import streamlit as st
 from pathlib import Path
-import pandas as pd
+import streamlit as st
 import joblib
 
-st.set_page_config(page_title="AI Startup Success Predictor", page_icon="🚀")
-MODEL_PATH = Path(__file__).resolve().parent / "models" / "startup_success_predictor.pkl"
+BASE_DIR = Path(__file__).parent
+MODEL_PATH = BASE_DIR / "models" / "startup_success_predictor.pkl"
+
+st.write("Looking for model at:")
+st.code(str(MODEL_PATH))
+
+if not MODEL_PATH.exists():
+    st.error("Model file not found!")
+    st.stop()
 
 @st.cache_resource
 def load_model():
     return joblib.load(MODEL_PATH)
 
-st.title("🚀 AI Startup Success Predictor")
-st.write("Predict startup success using Machine Learning.")
+model = load_model()
 
 try:
     model = load_model()
