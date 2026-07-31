@@ -13,12 +13,6 @@ def load_model():
 st.title("🚀 AI Startup Success Predictor")
 st.write("Predict startup success using Machine Learning.")
 
-try:
-    model = load_model()
-except Exception as e:
-    st.error("Model could not be loaded.")
-    st.code(str(e))
-    st.stop()
 
 with st.form("prediction"):
     funding=st.number_input("Funding (USD millions)",0.0,1000.0,10.0)
